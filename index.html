@@ -1,150 +1,3389 @@
-```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Welcome</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Shorya | My World</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#111;
+html {
+    scroll-behavior: smooth;
 }
 
-.box{
-    width:350px;
-    padding:30px;
-    background:#1e1e1e;
-    border-radius:20px;
-    text-align:center;
-    animation:pop 0.8s ease;
-    box-shadow:0 0 30px rgba(255,255,255,0.1);
+body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #030305;
+    color: white;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
-@keyframes pop{
-    from{
-        opacity:0;
-        transform:scale(0.7);
+
+/* =====================================================
+   HOLOGRAM BACKGROUND
+===================================================== */
+
+.holo-background {
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(108,99,255,.18),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(0,229,255,.13),
+            transparent 35%
+        ),
+        #030305;
+}
+
+.holo-glow {
+    position: absolute;
+
+    width: 650px;
+    height: 650px;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        conic-gradient(
+            from 0deg,
+            #6c63ff,
+            #00e5ff,
+            #ff4fd8,
+            #6c63ff
+        );
+
+    filter: blur(110px);
+    opacity: .18;
+
+    transition: transform .15s ease-out;
+}
+
+.holo-grid {
+    position: absolute;
+    inset: -50%;
+
+    background-image:
+        linear-gradient(
+            rgba(100,150,255,.13) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(100,150,255,.13) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+    transform:
+        perspective(500px)
+        rotateX(65deg)
+        translateY(25%);
+
+    opacity: .18;
+
+    transition: transform .25s ease-out;
+}
+
+.scanlines {
+    position: absolute;
+    inset: 0;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 4px,
+            rgba(255,255,255,.025) 5px
+        );
+
+    pointer-events: none;
+}
+
+.cursor-glow {
+    position: fixed;
+
+    width: 280px;
+    height: 280px;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0,229,255,.16),
+            transparent 65%
+        );
+
+    transform: translate(-50%, -50%);
+
+    z-index: -5;
+}
+
+
+/* =====================================================
+   PARTICLES
+===================================================== */
+
+#particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -4;
+}
+
+.particle {
+    position: absolute;
+
+    width: 3px;
+    height: 3px;
+
+    border-radius: 50%;
+
+    background: white;
+    opacity: .5;
+
+    box-shadow: 0 0 10px white;
+
+    animation:
+        particleFloat
+        var(--time)
+        infinite
+        alternate
+        ease-in-out;
+}
+
+@keyframes particleFloat {
+
+    from {
+        transform: translate(0,0);
     }
-    to{
-        opacity:1;
-        transform:scale(1);
+
+    to {
+        transform:
+            translate(
+                var(--x),
+                var(--y)
+            );
     }
 }
 
-h1{
-    color:white;
-    margin-bottom:20px;
+
+/* =====================================================
+   WEBSITE
+===================================================== */
+
+#website {
+    display: block;
+
+    min-height: 100vh;
+
+    padding:
+        40px 8%;
+
+    animation:
+        websiteIn 1s ease;
 }
 
-input{
-    width:100%;
-    padding:12px;
-    margin:8px 0;
-    border:none;
-    border-radius:10px;
-    background:#333;
-    color:white;
-}
+@keyframes websiteIn {
 
-button{
-    width:100%;
-    padding:12px;
-    margin-top:10px;
-    border:none;
-    border-radius:10px;
-    background:#4CAF50;
-    color:white;
-    cursor:pointer;
-    transition:0.3s;
-}
+    from {
+        opacity: 0;
 
-button:hover{
-    transform:scale(1.05);
-}
-
-#createBtn{
-    background:#2196F3;
-}
-
-#welcome{
-    display:none;
-    color:white;
-    font-size:28px;
-    animation:slide 1s ease;
-}
-
-@keyframes slide{
-    from{
-        opacity:0;
-        transform:translateY(-30px);
+        transform:
+            scale(1.04);
     }
-    to{
-        opacity:1;
-        transform:translateY(0);
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1);
     }
 }
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar {
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    margin-bottom:
+        100px;
+}
+
+.brand {
+    font-size: 24px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+.nav-right {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    justify-content: flex-end;
+}
+
+.status {
+    color: #aaa;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   TOP BUTTONS
+===================================================== */
+
+.top-button {
+    width: auto;
+
+    padding:
+        10px 15px;
+
+    border:
+        1px solid #333;
+
+    border-radius:
+        30px;
+
+    background:
+        rgba(15,15,25,.85);
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    backdrop-filter:
+        blur(15px);
+
+    transition: .3s;
+}
+
+.top-button:hover {
+    transform:
+        translateY(-2px);
+
+    border-color:
+        #00e5ff;
+
+    box-shadow:
+        0 0 25px
+        rgba(0,229,255,.15);
+}
+
+
+/* =====================================================
+   AI BUTTON
+===================================================== */
+
+.ai-toggle {
+    width: auto !important;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding:
+        10px 15px !important;
+
+    border:
+        1px solid #333 !important;
+
+    border-radius:
+        30px !important;
+
+    background:
+        rgba(15,15,25,.85) !important;
+
+    color:
+        white !important;
+
+    font-size:
+        13px !important;
+
+    font-weight:
+        bold;
+
+    cursor:
+        pointer;
+
+    backdrop-filter:
+        blur(15px);
+
+    transition:
+        .3s;
+}
+
+.ai-toggle:hover {
+    transform:
+        translateY(-2px);
+
+    border-color:
+        #00e5ff !important;
+}
+
+.toggle-switch {
+    width: 40px;
+    height: 22px;
+
+    padding: 3px;
+
+    border-radius: 20px;
+
+    background: #333;
+
+    display: flex;
+    align-items: center;
+
+    transition: .3s;
+}
+
+.toggle-dot {
+    width: 16px;
+    height: 16px;
+
+    border-radius: 50%;
+
+    background: #777;
+
+    transition: .3s;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+    max-width: 950px;
+
+    padding-bottom:
+        100px;
+}
+
+.welcome {
+    color: #aaa;
+
+    font-size: 18px;
+
+    margin-bottom:
+        12px;
+}
+
+.hero h2 {
+    font-size:
+        clamp(
+            50px,
+            9vw,
+            110px
+        );
+
+    line-height:
+        .95;
+
+    margin-bottom:
+        30px;
+}
+
+.hero h2 span {
+    background:
+        linear-gradient(
+            90deg,
+            white,
+            #777,
+            white
+        );
+
+    background-size:
+        200%;
+
+    -webkit-background-clip:
+        text;
+
+    color:
+        transparent;
+
+    animation:
+        shine 4s
+        linear infinite;
+}
+
+@keyframes shine {
+
+    to {
+        background-position:
+            200%;
+    }
+}
+
+.hero > p {
+    max-width:
+        700px;
+
+    color:
+        #aaa;
+
+    font-size:
+        19px;
+
+    line-height:
+        1.7;
+}
+
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.cards {
+    display:
+        flex;
+
+    gap:
+        15px;
+
+    margin-top:
+        45px;
+
+    flex-wrap:
+        wrap;
+}
+
+.card {
+    padding:
+        20px 25px;
+
+    border:
+        1px solid #222;
+
+    border-radius:
+        18px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    backdrop-filter:
+        blur(10px);
+
+    transition:
+        .3s;
+}
+
+.card:hover {
+    transform:
+        translateY(-6px);
+
+    border-color:
+        #555;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,229,255,.08);
+}
+
+.card strong {
+    display:
+        block;
+
+    font-size:
+        20px;
+
+    margin-bottom:
+        5px;
+}
+
+.card small {
+    color:
+        #777;
+}
+
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+.about,
+.inspiration,
+.featured-video,
+.socials {
+
+    padding:
+        100px 0;
+
+    border-top:
+        1px solid #171717;
+}
+
+.section-tag {
+
+    color:
+        #777;
+
+    letter-spacing:
+        5px;
+
+    font-size:
+        13px;
+
+    font-weight:
+        bold;
+
+    margin-bottom:
+        15px;
+}
+
+.about h2,
+.inspiration h2,
+.socials h2,
+.featured-video h2 {
+
+    font-size:
+        clamp(
+            45px,
+            7vw,
+            75px
+        );
+
+    margin-bottom:
+        25px;
+}
+
+.gradient-text {
+
+    background:
+        linear-gradient(
+            90deg,
+            white,
+            #777
+        );
+
+    -webkit-background-clip:
+        text;
+
+    color:
+        transparent;
+}
+
+
+/* =====================================================
+   ABOUT
+===================================================== */
+
+.about-text {
+
+    max-width:
+        800px;
+
+    color:
+        #aaa;
+
+    font-size:
+        18px;
+
+    line-height:
+        1.8;
+}
+
+.info-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:
+        15px;
+
+    margin-top:
+        45px;
+}
+
+.info-card {
+
+    padding:
+        25px;
+
+    border:
+        1px solid #222;
+
+    border-radius:
+        20px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    backdrop-filter:
+        blur(10px);
+
+    transition:
+        .3s;
+}
+
+.info-card:hover {
+
+    transform:
+        translateY(-5px);
+
+    border-color:
+        #555;
+}
+
+.info-card h3 {
+
+    margin-bottom:
+        8px;
+}
+
+.info-card p {
+
+    color:
+        #888;
+}
+
+
+/* =====================================================
+   LIKES
+===================================================== */
+
+.likes-title {
+
+    margin-top:
+        55px;
+
+    margin-bottom:
+        20px;
+
+    font-size:
+        28px;
+}
+
+.likes {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        12px;
+}
+
+.likes span {
+
+    padding:
+        12px 18px;
+
+    border-radius:
+        30px;
+
+    border:
+        1px solid #292929;
+
+    background:
+        #111;
+
+    transition:
+        .3s;
+}
+
+.likes span:hover {
+
+    transform:
+        scale(1.05);
+
+    background:
+        #1c1c1c;
+}
+
+
+/* =====================================================
+   INSPIRATION
+===================================================== */
+
+.inspiration-text {
+
+    max-width:
+        800px;
+
+    color:
+        #aaa;
+
+    line-height:
+        1.8;
+
+    font-size:
+        18px;
+
+    margin-bottom:
+        35px;
+}
+
+.people-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:
+        15px;
+}
+
+.person-card {
+
+    padding:
+        30px;
+
+    border:
+        1px solid #222;
+
+    border-radius:
+        22px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    transition:
+        .3s;
+}
+
+.person-card:hover {
+
+    transform:
+        translateY(-7px);
+
+    border-color:
+        #555;
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,229,255,.07);
+}
+
+.person-icon {
+
+    font-size:
+        35px;
+
+    margin-bottom:
+        15px;
+}
+
+.person-card h3 {
+
+    font-size:
+        23px;
+
+    margin-bottom:
+        8px;
+}
+
+.person-card p {
+
+    color:
+        #888;
+
+    line-height:
+        1.6;
+}
+
+
+/* =====================================================
+   VIDEO
+===================================================== */
+
+.video-card {
+
+    max-width:
+        1000px;
+
+    padding:
+        15px;
+
+    border:
+        1px solid #252525;
+
+    border-radius:
+        25px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    backdrop-filter:
+        blur(15px);
+
+    box-shadow:
+        0 25px 70px
+        rgba(0,0,0,.35);
+
+    transition:
+        .3s;
+}
+
+.video-card:hover {
+
+    border-color:
+        #444;
+
+    transform:
+        translateY(-4px);
+}
+
+.video-wrapper {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+    aspect-ratio:
+        16 / 9;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        17px;
+
+    background:
+        #000;
+}
+
+.video-wrapper iframe {
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    border:
+        0;
+}
+
+.video-credit {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
+
+    padding:
+        16px 5px 3px;
+
+    color:
+        #777;
+
+    font-size:
+        13px;
+}
+
+.video-credit a {
+
+    color:
+        #aaa;
+
+    text-decoration:
+        none;
+}
+
+
+/* =====================================================
+   SOCIAL LINKS
+===================================================== */
+
+.social-grid {
+
+    max-width:
+        900px;
+
+    display:
+        grid;
+
+    gap:
+        15px;
+}
+
+.social-card {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        20px;
+
+    padding:
+        22px;
+
+    border:
+        1px solid #222;
+
+    border-radius:
+        20px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    backdrop-filter:
+        blur(12px);
+
+    color:
+        white;
+
+    text-decoration:
+        none;
+
+    transition:
+        .3s;
+}
+
+.social-card:hover {
+
+    transform:
+        translateX(8px);
+
+    border-color:
+        #555;
+
+    background:
+        rgba(255,255,255,.07);
+}
+
+.social-card .icon {
+
+    width:
+        55px;
+
+    height:
+        55px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        15px;
+
+    background:
+        #181818;
+
+    font-size:
+        25px;
+}
+
+.social-card h3 {
+
+    margin-bottom:
+        5px;
+
+    font-size:
+        20px;
+}
+
+.social-card p {
+
+    color:
+        #777;
+
+    margin:
+        0;
+}
+
+.social-card b {
+
+    margin-left:
+        auto;
+
+    font-size:
+        25px;
+
+    color:
+        #777;
+}
+
+
+/* =====================================================
+   CREDITS
+===================================================== */
+
+.credits-section {
+
+    padding:
+        30px 0 10px;
+
+    border-top:
+        1px solid #171717;
+
+    text-align:
+        center;
+}
+
+.credits {
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        9px;
+
+    color:
+        #555;
+
+    font-size:
+        12px;
+
+    line-height:
+        1.7;
+}
+
+.credits a {
+
+    color:
+        #777;
+
+    text-decoration:
+        none;
+}
+
+footer {
+
+    padding:
+        35px 0 30px;
+
+    text-align:
+        center;
+
+    color:
+        #555;
+}
+
+footer strong {
+
+    color:
+        #888;
+}
+
+
+/* =====================================================
+   AI WINDOW
+===================================================== */
+
+#aiBox {
+
+    position:
+        fixed;
+
+    right:
+        25px;
+
+    top:
+        95px;
+
+    width:
+        390px;
+
+    max-width:
+        calc(100vw - 30px);
+
+    height:
+        540px;
+
+    display:
+        none;
+
+    flex-direction:
+        column;
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    border-radius:
+        22px;
+
+    background:
+        rgba(8,8,15,.96);
+
+    backdrop-filter:
+        blur(25px);
+
+    box-shadow:
+        0 25px 80px
+        rgba(0,0,0,.7);
+
+    overflow:
+        hidden;
+
+    z-index:
+        9998;
+}
+
+.aiHeader {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    padding:
+        18px;
+
+    border-bottom:
+        1px solid #222;
+}
+
+.aiHeader strong {
+
+    display:
+        block;
+
+    font-size:
+        18px;
+}
+
+.aiHeader small {
+
+    color:
+        #777;
+}
+
+.aiClose {
+
+    width:
+        35px !important;
+
+    height:
+        35px;
+
+    padding:
+        0 !important;
+
+    border:
+        none !important;
+
+    background:
+        #222 !important;
+
+    color:
+        white !important;
+
+    border-radius:
+        10px !important;
+
+    font-size:
+        22px !important;
+}
+
+#aiMessages {
+
+    flex:
+        1;
+
+    padding:
+        18px;
+
+    overflow-y:
+        auto;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        12px;
+}
+
+.aiMessage {
+
+    max-width:
+        88%;
+
+    padding:
+        12px 15px;
+
+    border-radius:
+        15px;
+
+    font-size:
+        14px;
+
+    line-height:
+        1.5;
+
+    white-space:
+        pre-line;
+}
+
+.aiMessage.bot {
+
+    align-self:
+        flex-start;
+
+    background:
+        #181818;
+
+    color:
+        #ddd;
+}
+
+.aiMessage.user {
+
+    align-self:
+        flex-end;
+
+    background:
+        white;
+
+    color:
+        black;
+}
+
+.quickQuestions {
+
+    display:
+        flex;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        7px;
+
+    padding:
+        0 18px 12px;
+}
+
+.quickQuestions button {
+
+    width:
+        auto;
+
+    padding:
+        7px 10px;
+
+    border:
+        1px solid #333;
+
+    border-radius:
+        20px;
+
+    background:
+        #111;
+
+    color:
+        #aaa;
+
+    font-size:
+        11px;
+
+    cursor:
+        pointer;
+}
+
+.aiInput {
+
+    display:
+        flex;
+
+    gap:
+        8px;
+
+    padding:
+        12px;
+
+    border-top:
+        1px solid #222;
+}
+
+.aiInput input {
+
+    flex:
+        1;
+
+    min-width:
+        0;
+
+    padding:
+        12px;
+
+    border:
+        1px solid #333;
+
+    border-radius:
+        12px;
+
+    background:
+        #111;
+
+    color:
+        white;
+}
+
+.aiSend {
+
+    width:
+        48px !important;
+
+    padding:
+        0 !important;
+
+    border-radius:
+        12px !important;
+
+    background:
+        white !important;
+
+    color:
+        black !important;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width:600px) {
+
+    #website {
+        padding:
+            30px 6%;
+    }
+
+    .navbar {
+
+        align-items:
+            flex-start;
+
+        margin-bottom:
+            70px;
+    }
+
+    .nav-right {
+
+        flex-direction:
+            column;
+
+        align-items:
+            flex-end;
+    }
+
+    .info-grid,
+    .people-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .login-card {
+
+        padding:
+            35px 25px;
+    }
+
+    .hero > p {
+
+        font-size:
+            17px;
+    }
+
+    #aiBox {
+
+        right:
+            15px;
+
+        top:
+            85px;
+
+        width:
+            calc(100vw - 30px);
+
+        height:
+            65vh;
+    }
+
+    .video-credit {
+
+        flex-direction:
+            column;
+
+        align-items:
+            flex-start;
+    }
+}
+
 </style>
+
 </head>
 
 <body>
 
-<div class="box">
 
-<div id="loginBox">
-<h1>Welcome</h1>
+<!-- =====================================================
+     HOLOGRAM BACKGROUND
+===================================================== -->
 
-<input type="text" id="username" placeholder="Username">
-<input type="password" id="password" placeholder="Password">
+<div class="holo-background">
 
-<button id="createBtn" onclick="createAccount()">Create Account</button>
-<button onclick="login()">Login</button>
+    <div
+        class="holo-glow"
+        id="holoGlow">
+    </div>
+
+    <div
+        class="holo-grid"
+        id="holoGrid">
+    </div>
+
+    <div class="scanlines"></div>
+
 </div>
 
-<div id="welcome"></div>
+
+<div
+    class="cursor-glow"
+    id="cursorGlow">
+</div>
+
+
+<div id="particles"></div>
+
+
+<!-- =====================================================
+     BGM
+===================================================== -->
+
+<audio
+    id="bgm"
+    loop
+    preload="auto">
+
+    <source
+        src="music.mp3"
+        type="audio/mpeg">
+
+</audio>
+
+
+<!-- =====================================================
+     MAIN WEBSITE
+===================================================== -->
+
+<div id="website">
+
+
+    <!-- NAVBAR -->
+
+    <div class="navbar">
+
+        <div class="brand">
+            SHORYA.
+        </div>
+
+
+        <div class="nav-right">
+
+            <div class="status">
+                ● ONLINE
+            </div>
+
+
+            <button
+                class="top-button"
+                id="musicButton"
+                onclick="toggleMusic()">
+
+                🔇 BGM OFF
+
+            </button>
+
+
+            <button
+                class="ai-toggle"
+                onclick="toggleAI()"
+                type="button">
+
+                🤖 AI
+
+                <span class="toggle-switch">
+
+                    <span
+                        class="toggle-dot"
+                        id="toggleDot">
+                    </span>
+
+                </span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="welcome">
+
+            Welcome,
+            <span id="visitorName"></span>
+            👋
+
+        </div>
+
+
+        <h2>
+
+            This is<br>
+
+            <span>
+                my world.
+            </span>
+
+        </h2>
+
+
+        <p>
+
+            I'm Shorya — an 12-year-old creator
+            from Pune, PCMC, India. 🇮🇳
+
+            I love computers, coding, gaming,
+            websites and technology.
+
+            I'm always learning, experimenting
+            and building something new. 🚀
+
+        </p>
+
+
+        <div class="cards">
+
+
+            <div class="card">
+
+                <strong>
+                    💻 Coding
+                </strong>
+
+                <small>
+                    Building cool projects
+                </small>
+
+            </div>
+
+
+            <div class="card">
+
+                <strong>
+                    🎮 Gaming
+                </strong>
+
+                <small>
+                    Playing and creating
+                </small>
+
+            </div>
+
+
+            <div class="card">
+
+                <strong>
+                    🚀 Projects
+                </strong>
+
+                <small>
+                    Always creating
+                </small>
+
+            </div>
+
+
+            <div class="card">
+
+                <strong>
+                    🌐 Web
+                </strong>
+
+                <small>
+                    Exploring technology
+                </small>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         ABOUT ME
+    ================================================== -->
+
+    <section class="about">
+
+        <div class="section-tag">
+            ABOUT ME
+        </div>
+
+
+        <h2>
+
+            Hey, I'm
+
+            <span class="gradient-text">
+                Shorya.
+            </span>
+
+        </h2>
+
+
+        <p class="about-text">
+
+            I'm an 12-year-old creator from
+            Pune, PCMC, India. 🇮🇳
+
+            I enjoy computers, programming,
+            websites, games and technology.
+
+            I like experimenting with ideas
+            and turning them into real projects.
+
+            Every project teaches me something
+            new, and I'm always trying to improve.
+
+            This website is my little corner
+            of the internet. 🌐✨
+
+        </p>
+
+
+        <div class="info-grid">
+
+
+            <div class="info-card">
+
+                <h3>
+                    👦 Name
+                </h3>
+
+                <p>
+                    Shorya
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <h3>
+                    🎂 Age
+                </h3>
+
+                <p>
+                    12
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <h3>
+                    📍 Location
+                </h3>
+
+                <p>
+                    Pune, PCMC
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <h3>
+                    🇮🇳 Country
+                </h3>
+
+                <p>
+                    India
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <h3 class="likes-title">
+            ⚡ Things I Like
+        </h3>
+
+
+        <div class="likes">
+
+            <span>
+                💻 Coding
+            </span>
+
+            <span>
+                🌐 Websites
+            </span>
+
+            <span>
+                🎮 Gaming
+            </span>
+
+            <span>
+                🚀 Technology
+            </span>
+
+            <span>
+                🧪 Experimenting
+            </span>
+
+            <span>
+                🎨 Creating
+            </span>
+
+            <span>
+                🤖 AI
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         PEOPLE WHO INSPIRED ME
+    ================================================== -->
+
+    <section class="inspiration">
+
+        <div class="section-tag">
+            MY INSPIRATION
+        </div>
+
+
+        <h2>
+
+            People who gave me
+
+            <span class="gradient-text">
+                confidence. ❤️
+            </span>
+
+        </h2>
+
+
+        <p class="inspiration-text">
+
+            Nobody builds alone.
+
+            I'm thankful to the people who
+            encourage me, help me learn and
+            give me confidence to keep creating.
+
+        </p>
+
+
+        <div class="people-grid">
+
+
+            <div class="person-card">
+
+                <div class="person-icon">
+                    👨‍🏫
+                </div>
+
+                <h3>
+                    Zeeshan Sir
+                </h3>
+
+                <p>
+
+                    From Dish Computers.
+
+                    Thank you for giving me
+                    confidence, encouraging me
+                    and helping me believe that
+                    I can learn and create cool
+                    technology projects.
+
+                </p>
+
+            </div>
+
+
+            <div class="person-card">
+
+                <div class="person-icon">
+                    ❤️
+                </div>
+
+                <h3>
+                    My Dad
+                </h3>
+
+                <p>
+
+                    My dad has supported me
+                    and encouraged me to keep
+                    learning and exploring
+                    technology.
+
+                    I'm grateful for the confidence
+                    and support he gives me.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         FEATURED VIDEO
+    ================================================== -->
+
+    <section class="featured-video">
+
+        <div class="section-tag">
+            FEATURED VIDEO
+        </div>
+
+
+        <h2>
+
+            Watch
+
+            <span class="gradient-text">
+                this 🎬
+            </span>
+
+        </h2>
+
+
+        <div class="video-card">
+
+            <div class="video-wrapper">
+
+                <iframe
+                    src="https://www.youtube.com/embed/uV13Myyoee0"
+                    title="Featured YouTube video"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+
+            </div>
+
+
+            <div class="video-credit">
+
+                <span>
+                    🎬 Embedded from YouTube
+                </span>
+
+
+                <a
+                    href="https://www.youtube.com/watch?v=uV13Myyoee0"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    Original video ↗
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         LINKS
+    ================================================== -->
+
+    <section class="socials">
+
+        <div class="section-tag">
+            FIND ME ONLINE
+        </div>
+
+
+        <h2>
+
+            My
+
+            <span class="gradient-text">
+                Links 🌐
+            </span>
+
+        </h2>
+
+
+        <div class="social-grid">
+
+
+            <!-- YOUTUBE -->
+
+            <a
+                href="https://www.youtube.com/@yourskui-b7t"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-card">
+
+                <div class="icon">
+                    ▶️
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        YouTube
+                    </h3>
+
+                    <p>
+                        @yourskui-b7t
+                    </p>
+
+                </div>
+
+
+                <b>
+                    →
+                </b>
+
+            </a>
+
+
+            <!-- ROBLOX -->
+
+            <a
+                href="https://www.roblox.com/users/9674387216/profile"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-card">
+
+                <div class="icon">
+                    🎮
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Roblox
+                    </h3>
+
+                    <p>
+                        View my Roblox profile
+                    </p>
+
+                </div>
+
+
+                <b>
+                    →
+                </b>
+
+            </a>
+
+
+            <!-- DISCORD -->
+
+            <a
+                href="https://discord.gg/YudH2UkTH"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-card">
+
+                <div class="icon">
+                    💬
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        🎮✨ 𝓇𝑜𝒷𝓁𝑜𝓍𝒾𝒶𝓃𝓈 ✨🎮
+                    </h3>
+
+                    <p>
+                        Join my Discord server
+                    </p>
+
+                </div>
+
+
+                <b>
+                    →
+                </b>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         CREDITS
+    ================================================== -->
+
+    <section class="credits-section">
+
+        <div class="credits">
+
+            <span>
+                © 2026 Shorya
+            </span>
+
+            <span>
+                •
+            </span>
+
+            <span>
+                🎬 Featured video:
+            </span>
+
+            <a
+                href="https://www.youtube.com/watch?v=uV13Myyoee0"
+                target="_blank"
+                rel="noopener noreferrer">
+
+                YouTube
+
+            </a>
+
+            <span>
+                •
+            </span>
+
+            <span>
+                🌐 Website created by Shorya
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+
+        <p>
+
+            Made with 💻 by
+
+            <strong>
+                Shorya
+            </strong>
+
+        </p>
+
+        <br>
+
+        <p>
+            © 2026 Shorya
+        </p>
+
+    </footer>
+
 
 </div>
+
+
+<!-- =====================================================
+     OFFLINE MINI AI
+===================================================== -->
+
+<div id="aiBox">
+
+
+    <div class="aiHeader">
+
+        <div>
+
+            <strong>
+                Shorya AI 🤖
+            </strong>
+
+            <small>
+                Offline Mini-AI
+            </small>
+
+        </div>
+
+
+        <button
+            class="aiClose"
+            onclick="toggleAI()"
+            type="button">
+
+            ×
+
+        </button>
+
+    </div>
+
+
+    <div id="aiMessages">
+
+        <div class="aiMessage bot">
+
+Heyyy! 👋 I'm Shorya AI!
+
+You can type normally OR with
+terrible keyboard spam 😂
+
+Try:
+
+"whut iz todys dateeee"
+
+"wht ur nammmmm"
+
+"wat time iz it"
+
+"who iz shorya"
+
+"what is special today"
+
+        </div>
+
+    </div>
+
+
+    <div class="quickQuestions">
+
+
+        <button
+            onclick="quickAsk('what is today date')">
+
+            📅 Date
+
+        </button>
+
+
+        <button
+            onclick="quickAsk('what time is it')">
+
+            ⏰ Time
+
+        </button>
+
+
+        <button
+            onclick="quickAsk('who are you')">
+
+            🤖 You?
+
+        </button>
+
+
+        <button
+            onclick="quickAsk('who is shorya')">
+
+            👦 Shorya
+
+        </button>
+
+
+        <button
+            onclick="quickAsk('what is special today')">
+
+            🎉 Today
+
+        </button>
+
+
+        <button
+            onclick="quickAsk('tell me a joke')">
+
+            😂 Joke
+
+        </button>
+
+
+    </div>
+
+
+    <div class="aiInput">
+
+        <input
+            id="aiInput"
+            type="text"
+            placeholder="Ask me anything..."
+            autocomplete="off">
+
+
+        <button
+            class="aiSend"
+            onclick="sendAI()"
+            type="button">
+
+            ➤
+
+        </button>
+
+    </div>
+
+</div>
+
 
 <script>
-function createAccount(){
-    let user=document.getElementById("username").value;
-    let pass=document.getElementById("password").value;
 
-    localStorage.setItem("user",user);
-    localStorage.setItem("pass",pass);
+/* =====================================================
+   PARTICLES
+===================================================== */
 
-    alert("Account Created!");
+const particleContainer =
+    document.getElementById(
+        "particles"
+    );
+
+
+for (
+    let i = 0;
+    i < 60;
+    i++
+) {
+
+    const particle =
+        document.createElement(
+            "div"
+        );
+
+    particle.className =
+        "particle";
+
+    particle.style.left =
+        Math.random() * 100 + "%";
+
+    particle.style.top =
+        Math.random() * 100 + "%";
+
+    particle.style.setProperty(
+        "--x",
+        (
+            Math.random() * 180 - 90
+        ) + "px"
+    );
+
+    particle.style.setProperty(
+        "--y",
+        (
+            Math.random() * 180 - 90
+        ) + "px"
+    );
+
+    particle.style.setProperty(
+        "--time",
+        (
+            4 +
+            Math.random() * 8
+        ) + "s"
+    );
+
+    particleContainer.appendChild(
+        particle
+    );
 }
 
-function login(){
-    let user=document.getElementById("username").value;
-    let pass=document.getElementById("password").value;
 
-    if(
-        user===localStorage.getItem("user") &&
-        pass===localStorage.getItem("pass")
-    ){
-        document.getElementById("loginBox").style.display="none";
+/* =====================================================
+   HOLOGRAM MOUSE EFFECT
+===================================================== */
 
-        document.getElementById("welcome").style.display="block";
-        document.getElementById("welcome").innerHTML =
-        "Welcome " + user + " 👋";
+const holoGlow =
+    document.getElementById(
+        "holoGlow"
+    );
+
+const holoGrid =
+    document.getElementById(
+        "holoGrid"
+    );
+
+const cursorGlow =
+    document.getElementById(
+        "cursorGlow"
+    );
+
+
+document.addEventListener(
+    "mousemove",
+    function(event) {
+
+        const x =
+            event.clientX /
+            window.innerWidth;
+
+        const y =
+            event.clientY /
+            window.innerHeight;
+
+
+        cursorGlow.style.left =
+            event.clientX + "px";
+
+        cursorGlow.style.top =
+            event.clientY + "px";
+
+
+        holoGlow.style.transform =
+            `
+            translate(
+                calc(-50% + ${(x-.5)*200}px),
+                calc(-50% + ${(y-.5)*200}px)
+            )
+            scale(${1 + x*.15})
+            `;
+
+
+        holoGrid.style.transform =
+            `
+            perspective(500px)
+            rotateX(${65+(y-.5)*8}deg)
+            rotateY(${(x-.5)*10}deg)
+            translate(
+                ${(x-.5)*50}px,
+                ${25+(y-.5)*30}%
+            )
+            `;
+
+
     }
-    else{
-        alert("Wrong Username or Password");
+);
+
+
+/* =====================================================
+   MUSIC
+===================================================== */
+
+const bgm =
+    document.getElementById(
+        "bgm"
+    );
+
+const musicButton =
+    document.getElementById(
+        "musicButton"
+    );
+
+
+function startMusic() {
+
+    bgm.volume =
+        0.25;
+
+
+    bgm.play()
+        .then(
+            function() {
+
+                musicButton.textContent =
+                    "🔊 BGM ON";
+
+            }
+        )
+        .catch(
+            function() {
+
+                musicButton.textContent =
+                    "🔇 BGM OFF";
+
+            }
+        );
+}
+
+
+function toggleMusic() {
+
+    if (
+        bgm.paused
+    ) {
+
+        bgm.volume =
+            0.25;
+
+
+        bgm.play()
+            .then(
+                function() {
+
+                    musicButton.textContent =
+                        "🔊 BGM ON";
+
+                }
+            )
+            .catch(
+                function() {
+
+                    musicButton.textContent =
+                        "⚠️ ADD music.mp3";
+
+                }
+            );
+
+    }
+
+    else {
+
+        bgm.pause();
+
+        musicButton.textContent =
+            "🔇 BGM OFF";
+
     }
 }
+
+
+/* =====================================================
+   AI TOGGLE
+===================================================== */
+
+function toggleAI() {
+
+    const box =
+        document.getElementById(
+            "aiBox"
+        );
+
+    const dot =
+        document.getElementById(
+            "toggleDot"
+        );
+
+
+    if (
+        box.style.display ===
+        "flex"
+    ) {
+
+        box.style.display =
+            "none";
+
+        dot.style.transform =
+            "translateX(0)";
+
+        dot.style.background =
+            "#777";
+
+    }
+
+    else {
+
+        box.style.display =
+            "flex";
+
+        dot.style.transform =
+            "translateX(18px)";
+
+        dot.style.background =
+            "#00e5ff";
+
+        document
+            .getElementById(
+                "aiInput"
+            )
+            .focus();
+
+    }
+}
+
+
+/* =====================================================
+   AI NORMALIZER
+===================================================== */
+
+function normalizeText(text) {
+
+    let t =
+        text
+            .toLowerCase()
+            .trim();
+
+
+    const replacements = {
+
+        "u":
+            "you",
+
+        "ur":
+            "your",
+
+        "r":
+            "are",
+
+        "wat":
+            "what",
+
+        "wht":
+            "what",
+
+        "whut":
+            "what",
+
+        "wot":
+            "what",
+
+        "iz":
+            "is",
+
+        "iss":
+            "is",
+
+        "da":
+            "the",
+
+        "dat":
+            "that",
+
+        "todai":
+            "today",
+
+        "tody":
+            "today",
+
+        "tod":
+            "today",
+
+        "nam":
+            "name",
+
+        "nme":
+            "name",
+
+        "abt":
+            "about",
+
+        "plz":
+            "please",
+
+        "pls":
+            "please",
+
+        "hw":
+            "how",
+
+        "yr":
+            "your",
+
+        "nd":
+            "and",
+
+        "cn":
+            "can",
+
+        "frm":
+            "from"
+
+    };
+
+
+    t =
+        t
+            .split(/\s+/)
+            .map(
+                word =>
+                    replacements[word] ||
+                    word
+            )
+            .join(" ");
+
+
+    t =
+        t.replace(
+            /([a-z])\1{2,}/g,
+            "$1"
+        );
+
+
+    t =
+        t.replace(
+            /[^\w\s?]/g,
+            " "
+        );
+
+
+    t =
+        t.replace(
+            /\s+/g,
+            " "
+        )
+        .trim();
+
+
+    return t;
+}
+
+
+/* =====================================================
+   WORD MATCH
+===================================================== */
+
+function hasAny(
+    text,
+    words
+) {
+
+    return words.some(
+        word =>
+            text.includes(word)
+    );
+}
+
+
+/* =====================================================
+   AI BRAIN
+===================================================== */
+
+function getAIResponse(
+    original
+) {
+
+    const q =
+        normalizeText(
+            original
+        );
+
+
+    const now =
+        new Date();
+
+
+    if (
+        hasAny(
+            q,
+            [
+                "hello",
+                "hi",
+                "hey",
+                "yo",
+                "sup"
+            ]
+        )
+    ) {
+
+        return (
+            "Heyyyy! 👋 " +
+            "Welcome to Shorya AI 🤖"
+        );
+    }
+
+
+    if (
+        hasAny(
+            q,
+            [
+                "your name",
+                "who are you",
+                "what are you called"
+            ]
+        )
+    ) {
+
+        return (
+            "I'm Shorya AI 🤖 — " +
+            "the offline assistant on this website!"
+        );
+    }
+
+
+    if (
+        hasAny(
+            q,
+            [
+                "today date",
+                "date today",
+                "todays date",
+                "what is the date",
+                "what is today date",
+                "date"
+            ]
+        )
+    ) {
+
+        return (
+            "Today is " +
+
+            now.toLocaleDateString(
+                "en-IN",
+                {
+                    weekday:
+                        "long",
+
+                    day:
+                        "numeric",
+
+                    month:
+                        "long",
+
+                    year:
+                        "numeric"
+                }
+            ) +
+
+            " 📅"
+        );
+    }
+
+
+    if (
+        hasAny(
+            q,
+            [
+                "what time",
+                "current time",
+                "time is it",
+                "time now",
+                "time"
+            ]
+        )
+    ) {
+
+        return (
+            "The current time is " +
+
+            now.toLocaleTimeString(
+                "en-IN",
+                {
+                    hour:
+                        "numeric",
+
+                    minute:
+                        "2-digit",
+
+                    second:
+                        "2-digit"
+                }
+            ) +
+
+            " ⏰"
+        );
+    }
+
+
+    if (
+        hasAny(
+            q,
+            [
+                "special today",
+                "whats special",
+                "what is special",
+                "anything special today"
+            ]
+        )
+    ) {
+
+        const month =
+            now.getMonth() + 1;
+
+        const day =
+            now.getDate();
+
+
+        if (
+            month === 1 &&
+            day === 1
+        ) {
+
+            return (
+                "It's New Year's Day! 🎆"
+            );
+        }
+
+
+        if (
+            month === 8 &&
+            day === 15
+        ) {
+
+            return (
+                "It's India's Independence Day! 🇮🇳"
+            );
+        }
+
+
+        if (
+            month === 10 &&
+            day === 31
+        ) {
+
+            return (
+                "It's Halloween! 🎃"
+            );
+        }
+
+
+        if (
+            month === 12 &&
+            day === 25
+        ) {
+
+            return (
+                "It's Christmas! 🎄"
+            );
+        }
+
+
+        return (
+            "I don't have a special event " +
+            "programmed for today yet 😎"
+        );
+    }
+
+
+    if (
+        hasAny(
+            q,
+            [
+                "who is shorya",
+                "about shorya",
+                "tell me about shorya",
+                "shorya"
+            ]
+        )
+    ) {
+
+        return (
+            "Shorya is an 12-year-old creator " +
+            "from Pune, PCMC, India. 🇮🇳\n\n" +
+
+            "He likes coding, gaming, websites, " +
+            "AI and technology. 💻🎮🤖🚀"
+        );
+    }
+
+
+    if (
+        hasAny(
+            q,
+            [
+                "shorya age",
+                "age of shorya",
+                "how old is shorya",
+                "how old"
+            ]
+        )
+    ) {
+
+        return (
+            "Shorya is 12 years old. 🎂"
+        );
+    }
+
+
+    if (
+        hasAny(
+            q,
+            [
+                "where is shorya",
+                "where does shorya live",
+                "shorya location"
+            ]
+        )
+    ) {
+
+        return (
+            "Shorya is from Pune, PCMC, India. 📍🇮🇳"
+        );
+    }
+
+
+    if (
+        hasAny(
+            q,
+            [
+                "zeeshan",
+                "zeeshan sir"
+            ]
+        )
+    ) {
+
+        return (
+            "Zeeshan Sir from Dish Computers " +
+            "is one of the people who gave Shorya " +
+            "confidence and encouraged him. 👨‍🏫❤️"
+        );
+    }
+
+
+    if (
+        hasAny(
+            q,
+            [
+                "dad",
+                "father",
+                "my dad"
+            ]
+        )
+    ) {
+
+        return (
+            "Shorya's dad is one of the people " +
+            "who supports and encourages him. ❤️"
+        );
+    }
+
+
+    if (
+        hasAny(
+            q,
+            [
+                "youtube",
+                "youtube channel"
+            ]
+        )
+    ) {
+
+        return (
+            "Check the YouTube button in " +
+            "the Links section! ▶️"
+        );
+    }
+
+
+    if (
+        hasAny(
+            q,
+            [
+                "roblox",
+                "roblox profile"
+            ]
+        )
+    ) {
+
+        return (
+            "Shorya has a Roblox profile! 🎮 " +
+            "Check the Roblox button below."
+        );
+    }
+
+
+    if (
+        hasAny(
+            q,
+            [
+                "discord",
+                "discord server"
+            ]
+        )
+    ) {
+
+        return (
+            "You can join the Discord server " +
+            "using the Discord button in the Links section! 💬"
+        );
+    }
+
+
+    if (
+        hasAny(
+            q,
+            [
+                "coding",
+                "programming",
+                "code"
+            ]
+        )
+    ) {
+
+        return (
+            "Shorya likes coding and building " +
+            "websites and technology projects. 💻🚀"
+        );
+    }
+
+
+    if (
+        hasAny(
+            q,
+            [
+                "gaming",
+                "games",
+                "game"
+            ]
+        )
+    ) {
+
+        return (
+            "Gaming is one of Shorya's interests! 🎮🔥"
+        );
+    }
+
+
+    if (
+        hasAny(
+            q,
+            [
+                "joke",
+                "make me laugh",
+                "funny"
+            ]
+        )
+    ) {
+
+        const jokes = [
+
+            "Why did the computer go to the doctor? 🤖 It had a virus! 😂",
+
+            "Why was the computer cold? 🥶 It left its Windows open! 😂",
+
+            "What do computers eat? 🍪 Microchips! 😂",
+
+            "Why did the programmer quit? 🤔 He didn't get arrays! 😂"
+
+        ];
+
+
+        return jokes[
+            Math.floor(
+                Math.random() *
+                jokes.length
+            )
+        ];
+    }
+
+
+    if (
+        hasAny(
+            q,
+            [
+                "how are you",
+                "how you doing"
+            ]
+        )
+    ) {
+
+        return (
+            "I'm doing great! 🤖⚡ " +
+            "I'm running completely offline!"
+        );
+    }
+
+
+    if (
+        hasAny(
+            q,
+            [
+                "thank",
+                "thanks",
+                "thx"
+            ]
+        )
+    ) {
+
+        return (
+            "You're welcome! 😎🤖"
+        );
+    }
+
+
+    if (
+        hasAny(
+            q,
+            [
+                "help",
+                "what can you do",
+                "what do you know"
+            ]
+        )
+    ) {
+
+        return (
+            "I can understand messy typing too! 😎\n\n" +
+
+            "Try asking about:\n" +
+
+            "📅 Today's date\n" +
+            "⏰ The time\n" +
+            "🎉 What's special today\n" +
+            "👦 Shorya\n" +
+            "👨‍🏫 Zeeshan Sir\n" +
+            "▶️ YouTube\n" +
+            "🎮 Roblox\n" +
+            "💬 Discord\n" +
+            "😂 Jokes"
+        );
+    }
+
+
+    if (
+        hasAny(
+            q,
+            [
+                "bye",
+                "goodbye"
+            ]
+        )
+    ) {
+
+        return (
+            "Byeeee! 👋😎"
+        );
+    }
+
+
+    return (
+        "Hmmmm 🤔 I don't know that one yet.\n\n" +
+
+        "Try:\n" +
+
+        "• whut iz todys dateeee\n" +
+        "• wht ur nammmmm\n" +
+        "• wat time iz it\n" +
+        "• who iz shorya\n" +
+        "• what iz special today\n" +
+        "• tell me a jokeeee 😂"
+    );
+}
+
+
+/* =====================================================
+   ADD AI MESSAGE
+===================================================== */
+
+function addMessage(
+    text,
+    type
+) {
+
+    const messages =
+        document.getElementById(
+            "aiMessages"
+        );
+
+
+    const message =
+        document.createElement(
+            "div"
+        );
+
+
+    message.className =
+        "aiMessage " +
+        type;
+
+
+    message.textContent =
+        text;
+
+
+    messages.appendChild(
+        message
+    );
+
+
+    messages.scrollTop =
+        messages.scrollHeight;
+}
+
+
+/* =====================================================
+   SEND AI
+===================================================== */
+
+function sendAI() {
+
+    const input =
+        document.getElementById(
+            "aiInput"
+        );
+
+
+    const question =
+        input.value.trim();
+
+
+    if (
+        question === ""
+    ) {
+
+        return;
+    }
+
+
+    addMessage(
+        question,
+        "user"
+    );
+
+
+    input.value =
+        "";
+
+
+    setTimeout(
+        function() {
+
+            const response =
+                getAIResponse(
+                    question
+                );
+
+
+            addMessage(
+                response,
+                "bot"
+            );
+
+        },
+        300
+    );
+}
+
+
+/* =====================================================
+   QUICK QUESTIONS
+===================================================== */
+
+function quickAsk(
+    question
+) {
+
+    const input =
+        document.getElementById(
+            "aiInput"
+        );
+
+
+    input.value =
+        question;
+
+
+    sendAI();
+}
+
+
+/* =====================================================
+   KEYBOARD SHORTCUTS
+===================================================== */
+
+document
+    .getElementById("aiInput")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                sendAI();
+
+            }
+
+        }
+    );
+
+
+
 </script>
 
 </body>
 </html>
-```
+
