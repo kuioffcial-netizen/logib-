@@ -4,359 +4,684 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shorya | The Unknown</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#09090d">
+<title>SORA. CREATIVE | Digital Experiences</title>
+<meta name="description" content="SORA Creative — Independent website development and AI-powered creative advertisements.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root {
+  --bg:#09090d;
+  --panel:#111117;
+  --panel2:#17171f;
+  --text:#f3eff4;
+  --muted:#9993a2;
+  --accent:#c18aff;
+  --accent2:#8c58d4;
+  --border:rgba(255,255,255,.09);
 }
-
-body {
-    min-height: 100vh;
-    background: #08070b;
-    color: white;
-    font-family: 'Outfit', sans-serif;
-    overflow-x: hidden;
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,sans-serif;
+  overflow-x:hidden;
 }
-
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(circle at 20% 20%, #42105235, transparent 35%),
-      radial-gradient(circle at 80% 80%, #34104b30, transparent 40%);
-    pointer-events: none;
-    z-index: -1;
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  background:
+    radial-gradient(ellipse at 15% 15%,rgba(130,67,180,.12),transparent 40%),
+    radial-gradient(ellipse at 85% 65%,rgba(90,55,150,.09),transparent 40%);
 }
-
-#particles {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: -1;
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.container{width:min(1100px,90%);margin:auto}
+.navbar{
+  position:sticky;top:0;z-index:20;
+  background:rgba(9,9,13,.83);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
 }
-
-.particle {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    background: #c084fc;
-    border-radius: 50%;
-    box-shadow: 0 0 12px #b44cff;
-    animation: float 8s infinite ease-in-out;
+.nav-inner{
+  height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
-
-@keyframes float {
-    0%,100% { transform: translateY(0); opacity: .2; }
-    50% { transform: translateY(-70px); opacity: 1; }
+.logo{
+  font-family:"Cormorant Garamond",serif;
+  font-size:32px;
+  font-weight:700;
+  letter-spacing:4px;
 }
-
-nav {
-    padding: 25px 8%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:27px;align-items:center}
+.nav-links a{
+  color:var(--muted);
+  font-size:12px;
+  letter-spacing:1px;
+  transition:.25s;
 }
-
-.logo {
-    font-family: 'Cinzel', serif;
-    font-size: 20px;
-    letter-spacing: 4px;
-    color: #d8a5ff;
+.nav-links a:hover{color:var(--accent)}
+.menu-btn{
+  display:none;
+  background:none;border:1px solid var(--border);
+  color:white;padding:9px 12px;border-radius:9px;
 }
-
-nav a {
-    color: #aaa;
-    text-decoration: none;
-    margin-left: 25px;
-    font-size: 13px;
-    transition: .3s;
+.hero{
+  min-height:660px;
+  display:flex;
+  align-items:center;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
 }
-
-nav a:hover {
-    color: #d8a5ff;
+.hero-content{width:100%;padding:100px 0}
+.symbol{
+  color:var(--accent);
+  font-size:42px;
+  margin-bottom:25px;
+  animation:float 4s ease-in-out infinite;
 }
-
-.hero {
-    min-height: 75vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 50px 20px;
+.eyebrow{
+  color:var(--accent);
+  font-size:11px;
+  letter-spacing:5px;
+  font-weight:700;
+  text-transform:uppercase;
 }
-
-.symbol {
-    font-size: 55px;
-    color: #d8a5ff;
-    text-shadow: 0 0 30px #a855f7;
-    animation: pulse 3s infinite;
+.hero h1{
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(75px,13vw,145px);
+  letter-spacing:8px;
+  line-height:1;
+  margin:25px 0;
+  background:linear-gradient(120deg,#fff,#c18aff,#eee2ff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
 }
-
-@keyframes pulse {
-    50% { text-shadow: 0 0 60px #c084fc; }
+.hero p{
+  max-width:590px;
+  margin:0 auto;
+  color:var(--muted);
+  line-height:1.9;
+  font-size:14px;
 }
-
-.tag {
-    color: #b77bdb;
-    letter-spacing: 5px;
-    font-size: 11px;
-    margin: 20px 0;
+.hero-buttons{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  margin-top:35px;
+  flex-wrap:wrap;
 }
-
-h1 {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(45px, 9vw, 95px);
-    letter-spacing: 8px;
-    background: linear-gradient(90deg,#fff,#c084fc,#fff);
-    background-size: 200%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    animation: shine 5s linear infinite;
+.btn{
+  padding:15px 25px;
+  border-radius:7px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:1px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  transition:.25s;
+  cursor:pointer;
 }
-
-@keyframes shine {
-    to { background-position: 200%; }
+.btn-primary{
+  background:var(--accent);
+  color:#170d20;
 }
-
-.subtitle {
-    color: #999;
-    margin-top: 18px;
-    letter-spacing: 3px;
-    font-size: 13px;
+.btn-primary:hover{
+  background:#d6b2ff;
+  transform:translateY(-3px);
+  box-shadow:0 10px 35px #a75bea35;
 }
-
-.line {
-    height: 1px;
-    width: 180px;
-    background: linear-gradient(90deg,transparent,#b46bdf,transparent);
-    margin: 35px auto;
+.btn-outline{
+  border:1px solid var(--border);
+  color:white;
 }
-
-.button {
-    display: inline-block;
-    padding: 13px 30px;
-    border: 1px solid #a855f7;
-    border-radius: 30px;
-    color: white;
-    text-decoration: none;
-    letter-spacing: 2px;
-    font-size: 12px;
-    transition: .3s;
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.scroll{
+  margin-top:65px;
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:4px;
 }
-
-.button:hover {
-    background: #8b32c7;
-    box-shadow: 0 0 25px #a855f7;
-    transform: translateY(-3px);
+.section{padding:100px 0}
+.section-heading{text-align:center;margin-bottom:55px}
+.section-heading .eyebrow{margin-bottom:15px}
+.section-heading h2{
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(38px,6vw,57px);
 }
-
-section {
-    padding: 65px 8%;
+.section-heading p{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:12px;
+  line-height:1.8;
 }
-
-.section-title {
-    text-align: center;
-    font-family: 'Cinzel', serif;
-    font-size: 27px;
-    letter-spacing: 5px;
-    color: #d8a5ff;
-    margin-bottom: 35px;
+.about-grid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:25px;
 }
-
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(210px,1fr));
-    gap: 20px;
-    max-width: 950px;
-    margin: auto;
+.panel{
+  background:linear-gradient(145deg,var(--panel2),var(--panel));
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:32px;
+  transition:.3s;
 }
-
-.card {
-    background: linear-gradient(145deg,#17121f,#0e0b13);
-    border: 1px solid #392342;
-    padding: 28px;
-    border-radius: 15px;
-    text-align: center;
-    transition: .3s;
+.panel:hover{
+  border-color:#b57eea55;
+  transform:translateY(-4px);
 }
-
-.card:hover {
-    transform: translateY(-7px);
-    border-color: #bd70ee;
-    box-shadow: 0 10px 35px #a855f720;
+.panel h3{font-size:19px;margin-bottom:15px}
+.panel p{font-size:13px;color:var(--muted);line-height:2}
+.about-mark{
+  font-family:"Cormorant Garamond",serif;
+  font-size:65px;
+  color:var(--accent);
+  margin-bottom:10px;
 }
-
-.card .emoji {
-    font-size: 30px;
-    margin-bottom: 15px;
+.skills{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-top:25px;
 }
-
-.card h3 {
-    color: #d8a5ff;
-    font-family: 'Cinzel', serif;
-    font-size: 15px;
-    margin-bottom: 9px;
+.skill{
+  text-align:center;
+  padding:22px 10px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#ffffff04;
 }
-
-.card p {
-    color: #aaa;
-    font-size: 14px;
+.skill .emoji{font-size:26px;margin-bottom:12px}
+.skill strong{font-size:11px;letter-spacing:1px}
+.service-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
 }
-
-.quote {
-    max-width: 650px;
-    margin: 20px auto;
-    padding: 40px 25px;
-    text-align: center;
-    border-top: 1px solid #603878;
-    border-bottom: 1px solid #603878;
-    color: #c7a3df;
-    font-family: 'Cinzel', serif;
-    font-size: 19px;
-    line-height: 1.8;
+.service-card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  padding:32px;
+  border-radius:14px;
+  transition:.3s;
 }
-
-footer {
-    text-align: center;
-    padding: 35px;
-    color: #777;
-    font-size: 12px;
-    letter-spacing: 2px;
+.service-card:hover{
+  transform:translateY(-6px);
+  border-color:var(--accent);
 }
-
-footer span {
-    color: #c084fc;
+.service-icon{font-size:34px;margin-bottom:20px}
+.service-card h3{font-size:21px;margin-bottom:12px}
+.service-card p{
+  font-size:13px;color:var(--muted);line-height:1.9;
 }
-
-@media(max-width:600px) {
-    nav { padding: 20px; }
-    nav a { margin-left: 10px; font-size: 11px; }
-    .logo { font-size: 15px; }
-    h1 { letter-spacing: 4px; }
+.service-card ul,.price-card ul{
+  list-style:none;margin-top:20px;
+}
+.service-card li,.price-card li{
+  color:#c5becd;
+  font-size:12px;
+  margin:12px 0;
+}
+.service-card li::before,.price-card li::before{
+  content:"✦";
+  color:var(--accent);
+  margin-right:10px;
+}
+.pricing-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+.price-card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  padding:30px;
+  border-radius:14px;
+  position:relative;
+  overflow:hidden;
+  transition:.3s;
+}
+.price-card:hover{
+  border-color:var(--accent);
+  transform:translateY(-5px);
+}
+.price-card.featured{
+  border-color:#bd83f477;
+  background:linear-gradient(145deg,#20152c,#111117);
+}
+.price-label{
+  font-size:10px;
+  letter-spacing:3px;
+  color:var(--accent);
+  text-transform:uppercase;
+  font-weight:700;
+}
+.price-card h3{font-size:22px;margin:12px 0}
+.price{
+  font-family:"Cormorant Garamond",serif;
+  font-size:48px;
+  font-weight:700;
+  margin:12px 0;
+}
+.price small{font-family:Inter,sans-serif;font-size:12px;color:var(--muted)}
+.price-note{
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.8;
+}
+.work-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+.work-card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+  transition:.3s;
+}
+.work-card:hover{transform:translateY(-5px);border-color:var(--accent)}
+.work-visual{
+  height:200px;
+  display:grid;
+  place-items:center;
+  background:
+    radial-gradient(circle at 50% 50%,#59357b55,transparent 65%),
+    linear-gradient(135deg,#19131f,#0c0c12);
+  font-family:"Cormorant Garamond",serif;
+  font-size:40px;
+  letter-spacing:4px;
+  color:#d5b6ff;
+}
+.work-info{padding:23px}
+.work-info h3{font-size:17px;margin-bottom:8px}
+.work-info p{color:var(--muted);font-size:12px;line-height:1.8}
+.tag{
+  display:inline-block;
+  margin-top:14px;
+  color:var(--accent);
+  font-size:9px;
+  letter-spacing:2px;
+  border:1px solid #bd83f444;
+  padding:7px 10px;
+  border-radius:30px;
+}
+.contact-box{
+  text-align:center;
+  padding:65px 25px;
+  background:linear-gradient(145deg,#21152c,#111117);
+  border:1px solid #bd83f444;
+  border-radius:18px;
+}
+.contact-box h2{
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(38px,6vw,58px);
+  margin:15px 0;
+}
+.contact-box p{
+  color:var(--muted);
+  font-size:13px;
+  max-width:520px;
+  margin:0 auto 25px;
+  line-height:1.9;
+}
+.notice{
+  max-width:650px;
+  margin:25px auto 0;
+  padding:15px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.8;
+}
+footer{
+  padding:35px 0;
+  text-align:center;
+  border-top:1px solid var(--border);
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:2px;
+}
+footer .footer-logo{
+  font-family:"Cormorant Garamond",serif;
+  font-size:27px;
+  color:white;
+  margin-bottom:12px;
+}
+footer span{color:var(--accent)}
+.reveal{
+  opacity:0;
+  transform:translateY(25px);
+  transition:opacity .7s,transform .7s;
+}
+.reveal.show{opacity:1;transform:translateY(0)}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
+@media(max-width:700px){
+  .nav-links{
+    display:none;
+    position:absolute;
+    top:76px;left:0;right:0;
+    background:#101017;
+    padding:25px;
+    flex-direction:column;
+    border-bottom:1px solid var(--border);
+  }
+  .nav-links.open{display:flex}
+  .menu-btn{display:block}
+  .about-grid,.service-grid,.pricing-grid,.work-grid{grid-template-columns:1fr}
+  .skills{grid-template-columns:repeat(2,1fr)}
+  .section{padding:75px 0}
+  .hero{min-height:600px}
+  .panel,.service-card,.price-card{padding:25px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    scroll-behavior:auto!important;
+    animation:none!important;
+    transition:none!important;
+  }
+  .reveal{opacity:1;transform:none}
 }
 </style>
 </head>
 
 <body>
 
-<div id="particles"></div>
-
-<nav>
-    <div class="logo">SORA.</div>
-    <div>
-        <a href="#about">ABOUT</a>
-        <a href="#vibes">VIBES</a>
-        <a href="#quote">QUOTE</a>
-    </div>
-</nav>
-
-<header class="hero">
-    <div class="symbol">𓆩 🦇 𓆪</div>
-    <div class="tag">WELCOME TO MY LITTLE WORLD</div>
-    <h1>SHORYA</h1>
-    <p class="subtitle">THE UNKNOWN · THE UNEXPECTED · THE DIFFERENT</p>
-    <div class="line"></div>
-    <a href="#about" class="button">DISCOVER ME ↓</a>
+<header class="navbar">
+  <div class="container nav-inner">
+    <a href="#home" class="logo">SORA<span>.</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">ABOUT</a>
+      <a href="#services">SERVICES</a>
+      <a href="#pricing">PRICING</a>
+      <a href="#work">MY WORK</a>
+      <a href="#contact">CONTACT</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  </div>
 </header>
 
-<section id="about">
-    <h2 class="section-title">𖤐 ABOUT ME 𖤐</h2>
+<main>
 
-    <div class="cards">
-        <div class="card">
-            <div class="emoji">🦇</div>
-            <h3>NAME</h3>
-            <p>Shorya Salve</p>
-        </div>
-
-        <div class="card">
-            <div class="emoji">🕷️</div>
-            <h3>NICKNAME</h3>
-            <p>Sora</p>
-        </div>
-
-        <div class="card">
-            <div class="emoji">⌛</div>
-            <h3>AGE</h3>
-            <p>13 Years</p>
-        </div>
-
-        <div class="card">
-            <div class="emoji">🌍</div>
-            <h3>LOCATION</h3>
-            <p>India 🇮🇳</p>
-        </div>
+<section class="hero" id="home">
+  <div class="container hero-content">
+    <div class="symbol">𓆩 🦇 𓆪</div>
+    <div class="eyebrow">INDEPENDENT DIGITAL CREATOR</div>
+    <h1>SORA.</h1>
+    <p>
+      Websites. Visuals. Digital creativity.<br>
+      Creating digital experiences with imagination,
+      technology and a little bit of darkness.
+    </p>
+    <div class="hero-buttons">
+      <a class="btn btn-primary" href="#services">EXPLORE SERVICES ↗</a>
+      <a class="btn btn-outline" href="#work">VIEW MY WORK</a>
     </div>
+    <div class="scroll">SCROLL TO DISCOVER ↓</div>
+  </div>
 </section>
 
-<section id="vibes">
-    <h2 class="section-title">𖤐 MY VIBES 𖤐</h2>
-
-    <div class="cards">
-        <div class="card">
-            <div class="emoji">🎮</div>
-            <h3>GAMING</h3>
-            <p>Lost in virtual worlds.</p>
-        </div>
-
-        <div class="card">
-            <div class="emoji">🎬</div>
-            <h3>EDITING</h3>
-            <p>Turning moments into art.</p>
-        </div>
-
-        <div class="card">
-            <div class="emoji">💻</div>
-            <h3>CODING</h3>
-            <p>Building things from imagination.</p>
-        </div>
-
-        <div class="card">
-            <div class="emoji">🎧</div>
-            <h3>MUSIC</h3>
-            <p>My own little universe.</p>
-        </div>
+<section class="section" id="about">
+  <div class="container reveal">
+    <div class="section-heading">
+      <div class="eyebrow">A LITTLE INTRODUCTION</div>
+      <h2>Behind SORA.</h2>
+      <p>Independent creativity. Personal vision. Digital possibilities.</p>
     </div>
+    <div class="about-grid">
+      <div class="panel">
+        <div class="about-mark">𖤐</div>
+        <h3>Who am I?</h3>
+        <p>
+          I'm Shorya, the creator behind SORA.
+          I enjoy building websites, experimenting with
+          AI-powered visuals and turning creative ideas
+          into digital projects.
+        </p>
+        <p style="margin-top:15px">
+          My approach is simple: keep learning, keep
+          experimenting and make every project better.
+        </p>
+      </div>
+      <div class="panel">
+        <div class="about-mark">✦</div>
+        <h3>My Philosophy</h3>
+        <p>
+          Creativity has no fixed boundaries.
+          Every project is an opportunity to explore
+          something new and create something meaningful.
+        </p>
+      </div>
+    </div>
+
+    <div class="skills">
+      <div class="skill"><div class="emoji">💻</div><strong>CODING</strong></div>
+      <div class="skill"><div class="emoji">🌐</div><strong>WEB DESIGN</strong></div>
+      <div class="skill"><div class="emoji">🎬</div><strong>VIDEO EDITING</strong></div>
+      <div class="skill"><div class="emoji">✧</div><strong>AI CREATIVITY</strong></div>
+    </div>
+  </div>
 </section>
 
-<section id="quote">
-    <h2 class="section-title">𖤐 A THOUGHT 𖤐</h2>
-
-    <div class="quote">
-        "Not everyone's story is meant to be understood."
-        <br>
-        <span style="font-size:13px;color:#9d70b8;">
-            — SORA 🖤
-        </span>
+<section class="section" id="services">
+  <div class="container reveal">
+    <div class="section-heading">
+      <div class="eyebrow">WHAT I CREATE</div>
+      <h2>My Services.</h2>
+      <p>Creative digital solutions for online projects and brands.</p>
     </div>
+    <div class="service-grid">
+      <div class="service-card">
+        <div class="service-icon">🌐</div>
+        <h3>Website Development</h3>
+        <p>
+          Modern, responsive websites designed to
+          present your ideas, projects or business online.
+        </p>
+        <ul>
+          <li>Landing pages</li>
+          <li>Personal portfolios</li>
+          <li>Business websites</li>
+          <li>Responsive layouts</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎬</div>
+        <h3>AI Advertisements</h3>
+        <p>
+          Creative promotional content using AI-assisted
+          visuals and video editing.
+        </p>
+        <ul>
+          <li>Short promotional videos</li>
+          <li>Product advertisement concepts</li>
+          <li>Social media creatives</li>
+          <li>Text and visual editing</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </section>
+
+<section class="section" id="pricing">
+  <div class="container reveal">
+    <div class="section-heading">
+      <div class="eyebrow">SIMPLE & TRANSPARENT</div>
+      <h2>Service Packages.</h2>
+      <p>Example introductory pricing for small creative projects.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-label">WEB DEVELOPMENT · STARTER</div>
+        <h3>Basic Website</h3>
+        <div class="price">₹500 <small>/ project</small></div>
+        <p class="price-note">For simple personal or project websites.</p>
+        <ul>
+          <li>One-page website</li>
+          <li>Mobile-friendly layout</li>
+          <li>Basic contact section</li>
+          <li>One revision</li>
+        </ul>
+      </div>
+
+      <div class="price-card featured">
+        <div class="price-label">WEB DEVELOPMENT · STANDARD</div>
+        <h3>Professional Website</h3>
+        <div class="price">₹1,000 <small>/ project</small></div>
+        <p class="price-note">For projects needing more sections and detail.</p>
+        <ul>
+          <li>Up to four sections</li>
+          <li>Modern animations</li>
+          <li>Mobile-friendly layout</li>
+          <li>Contact links</li>
+          <li>Two revisions</li>
+        </ul>
+      </div>
+
+      <div class="price-card">
+        <div class="price-label">AI CREATIVE · STARTER</div>
+        <h3>Basic Advertisement</h3>
+        <div class="price">₹200 <small>/ video</small></div>
+        <p class="price-note">For short promotional video concepts.</p>
+        <ul>
+          <li>One short video</li>
+          <li>Basic editing</li>
+          <li>Text and transitions</li>
+        </ul>
+      </div>
+
+      <div class="price-card featured">
+        <div class="price-label">AI CREATIVE · STANDARD</div>
+        <h3>Premium Advertisement</h3>
+        <div class="price">₹300 <small>/ video</small></div>
+        <p class="price-note">For more detailed promotional visuals.</p>
+        <ul>
+          <li>One promotional video</li>
+          <li>AI-assisted visuals</li>
+          <li>Text and editing</li>
+          <li>Music where properly licensed</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="price-note" style="text-align:center;margin-top:25px">
+      Prices are introductory examples, not guaranteed quotations.
+      Final scope, availability and any paid arrangement must be
+      confirmed with a parent or guardian.
+    </p>
+  </div>
+</section>
+
+<section class="section" id="work">
+  <div class="container reveal">
+    <div class="section-heading">
+      <div class="eyebrow">CREATIVE EXPERIMENTS</div>
+      <h2>My Work.</h2>
+      <p>A place to showcase website projects and advertising concepts.</p>
+    </div>
+
+    <div class="work-grid">
+      <article class="work-card">
+        <div class="work-visual">WEB.01</div>
+        <div class="work-info">
+          <h3>Website Design</h3>
+          <p>Responsive website concepts and modern web layouts.</p>
+          <span class="tag">WEB DEVELOPMENT</span>
+        </div>
+      </article>
+      <article class="work-card">
+        <div class="work-visual">AD.02</div>
+        <div class="work-info">
+          <h3>AI Advertisement</h3>
+          <p>Experimental promotional visuals and creative video concepts.</p>
+          <span class="tag">AI CREATIVE</span>
+        </div>
+      </article>
+    </div>
+    <p class="price-note" style="text-align:center;margin-top:20px">
+      These are showcase placeholders. Replace them with real project
+      screenshots and videos as your portfolio grows.
+    </p>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="container reveal">
+    <div class="contact-box">
+      <div class="eyebrow">HAVE A CREATIVE IDEA?</div>
+      <h2>Let's Create Something.</h2>
+      <p>
+        Have an idea for a website or promotional creative?
+        Prepare your project requirements and let a parent
+        or guardian help manage any enquiries and arrangements.
+      </p>
+      <a class="btn btn-primary" href="#services">EXPLORE MY SERVICES ↗</a>
+      <div class="notice">
+        SORA is an independent creative portfolio.
+        Project enquiries, communication and payment arrangements
+        are handled with appropriate parent or guardian supervision.
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
 
 <footer>
-    𓆩 MADE WITH <span>♥</span> BY SHORYA 𓆪
-    <br><br>
-    © 2026 · THE UNKNOWN
+  <div class="footer-logo">SORA<span>.</span></div>
+  <p>𓆩 MADE WITH ♥ BY SHORYA 𓆪</p>
+  <p style="margin-top:12px">© 2026 SORA CREATIVE · THE UNKNOWN</p>
 </footer>
 
 <script>
-const container = document.getElementById("particles");
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
 
-for(let i = 0; i < 65; i++) {
-    const p = document.createElement("div");
-    p.className = "particle";
-    p.style.left = Math.random() * 100 + "%";
-    p.style.top = Math.random() * 100 + "%";
-    p.style.animationDelay = Math.random() * 8 + "s";
-    p.style.animationDuration = (5 + Math.random() * 8) + "s";
-    container.appendChild(p);
-}
+menuBtn.addEventListener("click", () => {
+  const open = navLinks.classList.toggle("open");
+  menuBtn.setAttribute("aria-expanded", String(open));
+  menuBtn.textContent = open ? "✕" : "☰";
+});
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+    menuBtn.setAttribute("aria-expanded", "false");
+    menuBtn.textContent = "☰";
+  });
+});
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+      observer.unobserve(entry.target);
+    }
+  });
+}, {threshold:0.12});
+
+document.querySelectorAll(".reveal").forEach(element => {
+  observer.observe(element);
+});
 </script>
 
 </body>
